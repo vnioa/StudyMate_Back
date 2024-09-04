@@ -1,5 +1,12 @@
-* text=auto
-*.ts eol=lf
-*.js eol=lf
-*.json eol=lf
-*.md eol=lf
+# 모든 텍스트 파일에 대해 LF 줄바꿈 유지
+* text=auto eol=lf
+
+# 특정 파일 형식별로 줄바꿈 방식 설정
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+
+# CRLF 줄바꿈이 필요한 파일 설정 (예: Windows 스크립트 파일)
+*.bat text eol=crlf
+*.cmd text eol=crlf
