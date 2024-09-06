@@ -7,12 +7,11 @@ const dotenv = require("./dotenv");
 dotenv();
 
 // 데이터베이스 연결 풀 생성
-// 연결 풀은 다수의 연결을 관리하며, 서버의 성능을 높이는 데 사용됨
 const pool = mysql.createPool({
-    host: process.env.DB_HOST,          // 데이터베이스 호스트 주소(localhost로 해도 되고 cmd에서 ipconfig 해서 IP 찾아서 넣어도 됨)
-    user: process.env.DB_USER,          // 데이터베이스 사용자 이름(보통 root)
+    host: process.env.DB_HOST,          // 데이터베이스 호스트 주소
+    user: process.env.DB_USER,          // 데이터베이스 사용자 이름
     password: process.env.DB_PASS,      // 데이터베이스 비밀번호
-    database: process.env.DB_NAME,      // 사용할 데이터베이스 이름(studymate로 통일할 예정)
+    database: process.env.DB_NAME,      // 사용할 데이터베이스 이름
     waitForConnections: true,           // 연결이 부족할 때 대기할 지 여부
     connectionLimit: 10,                // 동시에 열 수 있는 최대 연결 수
     queueLimit: 0,                      // 대기열 제한(0은 무제한)

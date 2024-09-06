@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3f3bb09e-71f3-46ef-b81d-c7c24b0b46f6.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/.env" beforeDir="false" afterPath="$PROJECT_DIR$/back/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/back/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/config/db.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/src/config/dotenv.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/config/dotenv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/activityLogController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/join.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/join.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/securityController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/settingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/join.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/join.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/join.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,8 +68,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Application.Unnamed.executor": "Run",
     "JavaScript Debug.join.html.executor": "Run",
     "Node.js.activityLogController.js.executor": "Run",
+    "Node.js.db.js.executor": "Run",
+    "Node.js.dotenv.js.executor": "Run",
     "Node.js.member.js.executor": "Run",
     "Node.js.server.js.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -83,7 +88,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\StudyMate\\front\\node_modules\\typescript\\lib",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\user\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -94,6 +100,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\IdeaProjects\StudyMate\back" />
+      <recent name="C:\Users\user\IdeaProjects\StudyMate" />
       <recent name="D:\2024-2학기\모바일SW프로젝트\Project_StudyMate\.idea" />
     </key>
   </component>
@@ -122,7 +130,9 @@
       <workItem from="1725436299093" duration="1290000" />
       <workItem from="1725542128700" duration="20820000" />
       <workItem from="1725603590166" duration="5258000" />
-      <workItem from="1725624414478" duration="3913000" />
+      <workItem from="1725624414478" duration="6377000" />
+      <workItem from="1725630850529" duration="384000" />
+      <workItem from="1725633554549" duration="4988000" />
     </task>
     <task id="LOCAL-00001" summary="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)">
       <option name="closed" value="true" />
