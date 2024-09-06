@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)">
-      <change afterPath="$PROJECT_DIR$/back/src/controllers/chat/1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3f3bb09e-71f3-46ef-b81d-c7c24b0b46f6.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/back/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/controllers/chat/groupChatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/chat/groupChatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/controllers/chat/personalChatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/chat/personalChatController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/config/dotenv.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/config/dotenv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/activityLogController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/join.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/join.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/securityController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/settingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,31 +63,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;wovlf__back&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/2024-2학기/모바일SW프로젝트/Project_StudyMate&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\StudyMate\\front\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "JavaScript Debug.join.html.executor": "Run",
+    "Node.js.activityLogController.js.executor": "Run",
+    "Node.js.member.js.executor": "Run",
+    "Node.js.server.js.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "aa",
+    "javascript.nodejs.core.library.configured.version": "20.17.0",
+    "javascript.nodejs.core.library.typings.version": "20.16.5",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/2024-2학기/모바일SW프로젝트/Project_StudyMate",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\StudyMate\\front\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\2024-2학기\모바일SW프로젝트\Project_StudyMate\.idea" />
@@ -92,8 +100,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
       </set>
     </attachedChunks>
   </component>
@@ -114,6 +122,7 @@
       <workItem from="1725436299093" duration="1290000" />
       <workItem from="1725542128700" duration="20820000" />
       <workItem from="1725603590166" duration="5258000" />
+      <workItem from="1725624414478" duration="3913000" />
     </task>
     <task id="LOCAL-00001" summary="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)">
       <option name="closed" value="true" />
@@ -144,6 +153,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)" />
