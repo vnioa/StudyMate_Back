@@ -38,7 +38,7 @@ const upload = multer({
 });
 
 // 정적 파일 서빙을 위한 설정
-// app.use(express.static(path.join(__dirname, 'controllers', 'user')));
+app.use(express.static(path.join(__dirname, 'controllers', 'user')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 회원가입 페이지
