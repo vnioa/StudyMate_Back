@@ -1,21 +1,45 @@
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcryptjs');
-const multer = require('multer'); // multer 추가
-const pool = require('./config/db'); // 데이터베이스 연결 풀 가져오기
+const multer = require('multer');
+const sharp = require('sharp');
+const fs = require('fs');
+const pool = require('./config/db');
 
 const app = express();
-const port = process.env.PORT || 3001; // 포트 번호 변경
+const port = process.env.PORT || 3001;
 
 // JSON 본문 파싱 미들웨어 추가
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// multer 설정
-const upload = multer({ dest: 'uploads/' }); // 파일을 'uploads/' 폴더에 저장
+// 파일 저장 위치 및 이름 설정
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+// 파일 필터 설정
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(new Error('Only .png files are allowed!'), false);
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter
+});
 
 // 정적 파일 서빙을 위한 설정
-app.use(express.static(path.join(__dirname, 'controllers', 'user')));
+// app.use(express.static(path.join(__dirname, 'controllers', 'user')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 회원가입 페이지
 app.get('/join', (req, res) => {
@@ -35,14 +59,35 @@ app.get('/', (req, res) => {
 // 회원가입 라우트 (POST /join)
 app.post('/join', upload.single('profile_image'), async (req, res) => {
     const { username, email, password, name, phone_number, birth_date, role } = req.body;
-    const profile_image = req.file ? req.file.path : null;
+    let profile_image = req.file ? req.file.path : null;
 
-    const password_hash = await bcrypt.hash(password, 10);
+    if (profile_image) {
+        const outputPath = profile_image.replace(path.extname(profile_image), '-processed.png');
 
-    const query = `INSERT INTO users (username, email, password_hash, name, phone_number, birth_date, profile_image, role)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+        try {
+            // Check if the file exists and is readable
+            await fs.promises.access(profile_image, fs.constants.F_OK | fs.constants.R_OK);
+
+            // Process the image
+            await sharp(profile_image)
+                .resize(800) // Adjust size as needed
+                .toFile(outputPath);
+
+            fs.unlinkSync(profile_image); // Remove the original file
+            profile_image = outputPath;
+
+            console.log('Image processed and saved to:', outputPath);
+        } catch (err) {
+            console.error('Error processing image:', err);
+            return res.status(500).json({ message: 'Error processing image' });
+        }
+    }
 
     try {
+        const password_hash = await bcrypt.hash(password, 10);
+        const query = `INSERT INTO users (username, email, password_hash, name, phone_number, birth_date, profile_image, role)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
         const [result] = await pool.execute(query, [username, email, password_hash, name, phone_number, birth_date, profile_image, role]);
         res.status(200).json({ message: 'User successfully created!' });
     } catch (err) {
@@ -50,7 +95,6 @@ app.post('/join', upload.single('profile_image'), async (req, res) => {
         res.status(500).json({ message: 'Database error occurred' });
     }
 });
-
 
 // 로그인 라우트 (POST /login)
 app.post('/login', async (req, res) => {
