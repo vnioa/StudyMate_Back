@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/uploads/4922363a40d5ed1454eb8fa442e70e9d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/uploads/6d5a5b00163ded071e8cd390b08dc45b" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/uploads/cb6839810b4e36fe8b3f6b4280f3964b" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
