@@ -1,5 +1,5 @@
 // 시간 관리 도구를 관리하는 서비스 불러오기
-const timeManagementService = require("../../services/timeManagementService");
+const timeManagementService = require("../../app/services/timeManagementService");
 
 // 공부 타이머를 시작하는 함수
 const startStudyTimer = async(req, res) => {

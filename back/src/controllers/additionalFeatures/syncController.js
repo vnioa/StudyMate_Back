@@ -1,5 +1,5 @@
 // 사용자 데이터를 관리하는 서비스 불러오기
-const syncService = require("../../services/syncService");
+const syncService = require("../../app/services/syncService");
 
 // 사용자의 데이터를 동기화하는 함수
 const syncData = async (req, res) => {

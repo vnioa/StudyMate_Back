@@ -1,5 +1,5 @@
 // 데이터 사용량을 관리하는 서비스 불러오기
-const dataUsageService = require("../../services/dataUsageService");
+const dataUsageService = require("../../app/services/dataUsageService");
 
 // 사용자의 데이터 사용량을 확인하는 함수
 const getDataUsage = async(req, res) => {

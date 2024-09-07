@@ -1,5 +1,5 @@
 // 업데이트 정보를 관리하는 서비스 불러오기
-const updateService = require("../../services/updateService");
+const updateService = require("../../app/services/updateService");
 
 // 사용자가 새로운 업데이트를 확인하는 함수
 const checkForUpdates = async (req, res) => {

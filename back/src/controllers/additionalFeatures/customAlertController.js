@@ -1,5 +1,5 @@
 // 사용자 맞춤 알림을 관리하는 서비스 불러오기
-const alertService = require("../../services/alertService");
+const alertService = require("../../app/services/alertService");
 
 // 사용자 맞춤형 알림을 설정하는 함수
 const setCustomAlert = async(req, res) => {

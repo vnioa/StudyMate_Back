@@ -1,5 +1,5 @@
 // 파일 관련 데이터를 관리하는 모델 불러오기
-const fileModel = require("../../models/fileModel");
+const fileModel = require("../../app/models/fileModel");
 
 // 최근 파일 목록을 가져오는 함수
 const getRecentFiles = async(req, res) => {

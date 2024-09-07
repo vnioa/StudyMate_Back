@@ -4,7 +4,111 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)" />
+    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)">
+      <change afterPath="$PROJECT_DIR$/back/src/app/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/routes/authRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/dateUtils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/emailSender.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/errorUtils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/fileHelper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/hashPassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/jwtUtils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/logger.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/responseHandler.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/app/utils/validators.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/.env" beforeDir="false" afterPath="$PROJECT_DIR$/back/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/auth/findAccountController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/config/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/config/dotenv.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/config/dotenv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/config/mailConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/config/mailConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/config/passportConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/config/passportConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/config/redisConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/config/redisConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/customAlertController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/customAlertController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/dataUsageController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/dataUsageController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/recentFilesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/recentFilesController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/syncController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/syncController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/timeManagementToolsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/timeManagementToolsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/updateNotificationController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/additionalFeatures/updateNotificationController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/auth/emailVerificationController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/auth/emailVerificationController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/auth/loginController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/auth/loginController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/auth/logoutController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/auth/logoutController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/auth/passwordResetController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/auth/passwordResetController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/controllers/auth/registerController.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/auth/registerController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/middlewares/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/middlewares/authMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/middlewares/errorHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/middlewares/errorHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/middlewares/logger.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/middlewares/logger.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/middlewares/permissionMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/middlewares/permissionMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/middlewares/rateLimiter.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/middlewares/rateLimiter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/middlewares/validateRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/middlewares/validateRequest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/chatModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/chatModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/chatReportModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/chatReportModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/commentReportModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/commentReportModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/fileModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/fileModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/groupModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/groupModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/groupReportModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/groupReportModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/notificationModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/notificationModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/postReportModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/postReportModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/profileModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/profileModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/quizModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/quizModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/studyProgressModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/studyProgressModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/userModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/models/userReportModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/models/userReportModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/additionalRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/additionalRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/chatRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/chatRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/dashboardRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/dashboardRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/feedbackRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/feedbackRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/fileRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/fileRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/gptIntegrationRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/gptIntegrationRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/groupRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/groupRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/learningContentRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/learningContentRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/notificationRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/notificationRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/offlineRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/offlineRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/performanceRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/performanceRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/quizzesRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/quizzesRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/reportRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/reportRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/rewardsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/rewardsRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/securityRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/securityRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/settingsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/settingsRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/statisticsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/statisticsRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/routes/studyRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/studyRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/routes/userRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/alertService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/alertService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/authService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/chatReportService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/chatReportService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/chatService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/chatService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/commentReportService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/commentReportService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/dataUsageService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/dataUsageService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/feedbackService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/feedbackService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/fileService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/fileService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/gptIntegrationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/gptIntegrationService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/groupReportService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/groupReportService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/groupService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/groupService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/learningContentService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/learningContentService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/notificationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/notificationService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/offlineService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/offlineService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/performanceService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/performanceService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/postReportService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/postReportService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/profileService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/profileService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/quizzesService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/quizzesService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/rewardsService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/rewardsService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/securityService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/securityService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/settingsService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/settingsService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/statisticsService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/statisticsService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/studyService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/studyService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/syncService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/syncService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/timeManagementService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/timeManagementService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/updateService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/updateService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/userReportService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/userReportService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/services/userService.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,9 +171,9 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;aa&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.17.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.16.5&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/2024-2학기/모바일SW프로젝트/Project_StudyMate&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -78,7 +182,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\user\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\StudyMate\\front\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -89,16 +193,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\StudyMate\front" />
+      <recent name="C:\StudyMate\front\app" />
+      <recent name="C:\StudyMate\back\src\app" />
       <recent name="C:\Users\user\IdeaProjects\StudyMate\back" />
       <recent name="C:\Users\user\IdeaProjects\StudyMate" />
-      <recent name="D:\2024-2학기\모바일SW프로젝트\Project_StudyMate\.idea" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
       </set>
     </attachedChunks>
   </component>
@@ -126,6 +232,8 @@
       <workItem from="1725711632849" duration="1304000" />
       <workItem from="1725712974965" duration="314000" />
       <workItem from="1725713454600" duration="675000" />
+      <workItem from="1725719582246" duration="23105000" />
+      <workItem from="1725747581024" duration="744000" />
     </task>
     <task id="LOCAL-00001" summary="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)">
       <option name="closed" value="true" />
