@@ -11,7 +11,8 @@ const pool = mysql.createPool({
     host: process.env.DB_HOST,          // 데이터베이스 호스트 주소
     user: process.env.DB_USER,          // 데이터베이스 사용자 이름
     password: process.env.DB_PASS,      // 데이터베이스 비밀번호
-    database: process.env.DB_NAME,      // 사용할 데이터베이스 이름
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,// 사용할 데이터베이스 이름
     waitForConnections: true,           // 연결이 부족할 때 대기할 지 여부
     connectionLimit: 10,                // 동시에 열 수 있는 최대 연결 수
     queueLimit: 0,                      // 대기열 제한(0은 무제한)

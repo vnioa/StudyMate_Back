@@ -1,3 +1,4 @@
+// join.js (브라우저에서 실행됨)
 document.getElementById('joinForm').addEventListener('submit', async (event) => {
     event.preventDefault(); // 기본 폼 제출 동작 방지
 

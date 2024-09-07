@@ -7,15 +7,9 @@
     <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/.env" beforeDir="false" afterPath="$PROJECT_DIR$/back/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/back/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/src/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/config/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/config/dotenv.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/config/dotenv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/controllers/user/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/join.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/src/controllers/user/join.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/controllers/user/join.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,39 +59,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "Application.Unnamed.executor": "Run",
-    "JavaScript Debug.join.html.executor": "Run",
-    "Node.js.activityLogController.js.executor": "Run",
-    "Node.js.db.js.executor": "Run",
-    "Node.js.dotenv.js.executor": "Run",
-    "Node.js.member.js.executor": "Run",
-    "Node.js.server.js.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "aa",
-    "javascript.nodejs.core.library.configured.version": "20.17.0",
-    "javascript.nodejs.core.library.typings.version": "20.16.5",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/2024-2학기/모바일SW프로젝트/Project_StudyMate",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Users\\user\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.join.html.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.activityLogController.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.db.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.dotenv.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.join.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.member.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.server.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;aa&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.17.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.16.5&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/2024-2학기/모바일SW프로젝트/Project_StudyMate&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\user\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\user\IdeaProjects\StudyMate\back" />
@@ -132,7 +127,11 @@
       <workItem from="1725603590166" duration="5258000" />
       <workItem from="1725624414478" duration="6377000" />
       <workItem from="1725630850529" duration="384000" />
-      <workItem from="1725633554549" duration="4988000" />
+      <workItem from="1725633554549" duration="5595000" />
+      <workItem from="1725710121304" duration="1363000" />
+      <workItem from="1725711632849" duration="1304000" />
+      <workItem from="1725712974965" duration="314000" />
+      <workItem from="1725713454600" duration="675000" />
     </task>
     <task id="LOCAL-00001" summary="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)">
       <option name="closed" value="true" />

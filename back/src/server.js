@@ -5,7 +5,7 @@ const multer = require('multer'); // multer 추가
 const pool = require('./config/db'); // 데이터베이스 연결 풀 가져오기
 
 const app = express();
-const port = 3001; // 포트 번호 변경
+const port = process.env.PORT || 3001; // 포트 번호 변경
 
 // JSON 본문 파싱 미들웨어 추가
 app.use(express.json());
@@ -33,8 +33,11 @@ app.get('/', (req, res) => {
 });
 
 // 회원가입 라우트 (POST /join)
-app.post('/join', async (req, res) => {
-    const { username, email, password_hash, name, phone_number, birth_date, profile_image, role } = req.body;
+app.post('/join', upload.single('profile_image'), async (req, res) => {
+    const { username, email, password, name, phone_number, birth_date, role } = req.body;
+    const profile_image = req.file ? req.file.path : null;
+
+    const password_hash = await bcrypt.hash(password, 10);
 
     const query = `INSERT INTO users (username, email, password_hash, name, phone_number, birth_date, profile_image, role)
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -47,6 +50,7 @@ app.post('/join', async (req, res) => {
         res.status(500).json({ message: 'Database error occurred' });
     }
 });
+
 
 // 로그인 라우트 (POST /login)
 app.post('/login', async (req, res) => {
