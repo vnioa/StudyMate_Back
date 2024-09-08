@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)">
-      <change afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/screens/FindAccountScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/screens/FirstScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/screens/LoginScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/screens/ResetPasswordScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/screens/SignUpScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -146,6 +134,7 @@
       <workItem from="1725719582246" duration="23105000" />
       <workItem from="1725747581024" duration="744000" />
       <workItem from="1725814403515" duration="4482000" />
+      <workItem from="1725821713354" duration="377000" />
     </task>
     <task id="LOCAL-00001" summary="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)">
       <option name="closed" value="true" />
@@ -171,7 +160,23 @@
       <option name="project" value="LOCAL" />
       <updated>1725574553611</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정">
+      <option name="closed" value="true" />
+      <created>1725821854738</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1725821854738</updated>
+    </task>
+    <task id="LOCAL-00005" summary="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정">
+      <option name="closed" value="true" />
+      <created>1725821936100</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1725821936100</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +197,7 @@
     <MESSAGE value="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)" />
     <MESSAGE value="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료" />
     <MESSAGE value="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)" />
-    <option name="LAST_COMMIT_MESSAGE" value="백엔드 프로젝트 구성 1차적 수정 완료&#10;back/src/config&#10;back/src/controllers/additionalFeatures&#10;back/src/controllers/auth&#10;&#10;해당 폴더에 있는 파일 코드 작성 완료&#10;&#10;.env 파일 수정(양식만 남기고 내용은 삭제)" />
+    <MESSAGE value="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정" />
+    <option name="LAST_COMMIT_MESSAGE" value="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정" />
   </component>
 </project>
