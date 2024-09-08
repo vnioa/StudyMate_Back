@@ -7,6 +7,7 @@ const FindAccountScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [sentCode, setSentCode] = useState('');
+  const [isVerified, setIsVerified] = useState(false); // 인증 여부 상태
 
   const handleSendVerificationCode = async () => {
     try {
@@ -29,11 +30,8 @@ const FindAccountScreen = ({ navigation }) => {
 
   const handleVerifyCode = () => {
     if (verificationCode === sentCode) {
-      if (mode === '아이디 찾기') {
-        Alert.alert('아이디 찾기', `아이디는 example123입니다.`);
-      } else {
-        navigation.navigate('ResetPasswordScreen');
-      }
+      setIsVerified(true);
+      Alert.alert('인증 완료', mode === '아이디 찾기' ? '아이디는 example123입니다.' : '이메일 인증이 완료되었습니다.');
     } else {
       Alert.alert('오류', '인증번호가 일치하지 않습니다.');
     }
@@ -107,6 +105,16 @@ const FindAccountScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>인증하기</Text>
         </TouchableOpacity>
       </View>
+
+      {mode === '비밀번호 찾기' && (
+        <TouchableOpacity
+          style={[styles.resetButton, !isVerified && styles.disabledResetButton]}
+          onPress={() => isVerified && navigation.navigate('ResetPasswordScreen')}
+          disabled={!isVerified}
+        >
+          <Text style={styles.resetButtonText}>재설정하기</Text>
+        </TouchableOpacity>
+      )}
     </ScrollView>
   );
 };
@@ -177,6 +185,21 @@ const styles = StyleSheet.create({
   },
   verifyButton: {
     backgroundColor: '#17a2b8',
+  },
+  resetButton: {
+    backgroundColor: '#007bff',
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  disabledResetButton: {
+    backgroundColor: '#aaa', // 비활성화된 버튼 색상
+  },
+  resetButtonText: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
