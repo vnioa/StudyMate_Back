@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정">
+    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/screens/FindAccountScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/screens/FindAccountScreen.js" afterDir="false" />
     </list>
@@ -59,40 +60,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.join.html.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.activityLogController.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.db.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.dotenv.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.join.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.member.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.server.js.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/2024-2학기/모바일SW프로젝트/Project_StudyMate&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\StudyMate\\front\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Application.Unnamed.executor": "Run",
+    "JavaScript Debug.join.html.executor": "Run",
+    "Node.js.activityLogController.js.executor": "Run",
+    "Node.js.db.js.executor": "Run",
+    "Node.js.dotenv.js.executor": "Run",
+    "Node.js.join.js.executor": "Run",
+    "Node.js.member.js.executor": "Run",
+    "Node.js.server.js.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "20.11.1",
+    "javascript.nodejs.core.library.typings.version": "20.11.30",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/2024-2학기/모바일SW프로젝트/Project_StudyMate",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "device.mirroring",
+    "ts.external.directory.path": "C:\\StudyMate\\front\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\StudyMate\front" />
