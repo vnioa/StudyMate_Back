@@ -5,8 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정">
+      <change afterPath="$PROJECT_DIR$/server/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/config/db.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/config/mailer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/config/smtp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/utils/token.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/screens/FindAccountScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/screens/FindAccountScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/.env" beforeDir="false" afterPath="$PROJECT_DIR$/back/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/app/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/app/config/db.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +48,7 @@
       </map>
     </option>
     <option name="RECENT_COMMON_BRANCH" value="main" />
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/front" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -72,18 +90,26 @@
     &quot;Node.js.server.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.17.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.16.5&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/2024-2학기/모바일SW프로젝트/Project_StudyMate&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/StudyMate&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.JavaScript&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\StudyMate\\front\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -95,11 +121,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\StudyMate" />
       <recent name="C:\StudyMate\front" />
       <recent name="C:\StudyMate\front\app" />
       <recent name="C:\StudyMate\back\src\app" />
       <recent name="C:\Users\user\IdeaProjects\StudyMate\back" />
-      <recent name="C:\Users\user\IdeaProjects\StudyMate" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -138,6 +164,18 @@
       <workItem from="1725747581024" duration="744000" />
       <workItem from="1725814403515" duration="4482000" />
       <workItem from="1725821713354" duration="723000" />
+      <workItem from="1725849518000" duration="3012000" />
+      <workItem from="1725855880651" duration="1020000" />
+      <workItem from="1725872302392" duration="850000" />
+      <workItem from="1725874270700" duration="345000" />
+      <workItem from="1725928528630" duration="3425000" />
+      <workItem from="1725939474457" duration="28000" />
+      <workItem from="1725939562056" duration="5196000" />
+      <workItem from="1725946159703" duration="1166000" />
+      <workItem from="1725947468013" duration="157000" />
+      <workItem from="1725955614199" duration="2096000" />
+      <workItem from="1725958459589" duration="156000" />
+      <workItem from="1725965038846" duration="876000" />
     </task>
     <task id="LOCAL-00001" summary="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)">
       <option name="closed" value="true" />
