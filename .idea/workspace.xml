@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정" />
+    <list default="true" id="67a829c8-79ce-49e0-88a7-a752d15aa5be" name="Changes" comment="프론트만 수정 완료&#10;최초 페이지, 로그인 페이지, 회원가입 페이지, 아이디/비밀번호 찾기 페이지, 비밀번호 재설정 페이지 UI/UX 고려하여 구현 완료&#10;&#10;테스트 결과, 폰 연결 후 npm run android 하면 화면 정상적으로 띄워지고 화면 전환도 구현완료&#10;&#10;App.tsx로 최초 파일 만들어져서 App.js로 변경 후 코드 작성했음&#10;&#10;0909_0356 작업 푸쉬&#10;&#10;서버는 건들지 않았고 오늘 오후에 수정 예정">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -155,6 +157,7 @@
       <workItem from="1725955614199" duration="2096000" />
       <workItem from="1725958459589" duration="156000" />
       <workItem from="1725965038846" duration="1092000" />
+      <workItem from="1725985744610" duration="666000" />
     </task>
     <task id="LOCAL-00001" summary="프론트, 백 프로젝트 생성&#10;프론트: react-native-cli 기반&#10;백: next.js 기반(node.js로 npm install)">
       <option name="closed" value="true" />
