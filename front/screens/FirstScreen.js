@@ -5,7 +5,7 @@ const FirstScreen = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>StudyMate</Text>
-            <Image source={require('../assets/study.png')} style={styles.logo} />
+            <Image source={require('../assets/studying.png')} style={styles.logo} />
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginScreen')}>

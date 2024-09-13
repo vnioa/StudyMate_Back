@@ -17,7 +17,7 @@ const SignUpScreen = ({ navigation }) => {
 
     const handleCheckUsername = async () => {
         try {
-            const response = await fetch('https://yourserver.com/api/check-username', {
+            const response = await fetch(`${process.env.API_URL}/api/check-username`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username }),
@@ -35,7 +35,7 @@ const SignUpScreen = ({ navigation }) => {
 
     const handleSendVerificationCode = async () => {
         try {
-            const response = await fetch('https://yourserver.com/api/send-verification', {
+            const response = await fetch(`${process.env.API_URL}/api/send-verification`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
@@ -73,7 +73,7 @@ const SignUpScreen = ({ navigation }) => {
         }
 
         try {
-            const response = await fetch('https://yourserver.com/api/signup', {
+            const response = await fetch(`${process.env.API_URL}/api/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password, name, birthDate: birthDate.toISOString().split('T')[0], phone, email }),

@@ -1,86 +1,105 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Switch, Button, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Alert, StyleSheet, Switch } from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import axios from 'axios';
 
 const StudyReminderScreen = () => {
-    // 상태 선언: 리마인더 설정, 성취도, AI 추천 콘텐츠
-    const [reminders, setReminders] = useState([]);
-    const [achievements, setAchievements] = useState([]);
-    const [aiRecommendations, setAiRecommendations] = useState([]);
+    const [reminderTime, setReminderTime] = useState(null);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isReviewEnabled, setIsReviewEnabled] = useState(false);
 
-    // 서버에서 리마인더 가져오기
-    const fetchReminders = async () => {
-        try {
-            const response = await axios.get(`${process.env.API_URL}/api/reminders`);
-            setReminders(response.data);
-        } catch (error) {
-            console.error("Error fetching reminders: ", error);
-        }
+    // 리마인더 시간 설정
+    const handleConfirm = (time) => {
+        setReminderTime(time);
+        setDatePickerVisibility(false);
     };
 
-    // 서버에서 성취도 및 AI 추천 콘텐츠 가져오기
-    const fetchAchievements = async () => {
+    // 리마인더 저장
+    const saveReminder = async () => {
+        if (!reminderTime) {
+            Alert.alert('리마인더 시간을 설정해 주세요.');
+            return;
+        }
         try {
-            const response = await axios.get(`${process.env.API_URL}/api/achievements`);
-            setAchievements(response.data);
+            await axios.post(`${process.env.API_URL}/save-reminder`, { reminderTime });
+            Alert.alert('리마인더가 저장되었습니다.');
         } catch (error) {
-            console.error("Error fetching achievements: ", error);
+            console.error('리마인더 저장 중 오류가 발생했습니다:', error);
         }
     };
-
-    const fetchAiRecommendations = async () => {
-        try {
-            const response = await axios.get(`${process.env.API_URL}/api/ai-recommendations`);
-            setAiRecommendations(response.data);
-        } catch (error) {
-            console.error("Error fetching AI recommendations: ", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchReminders();
-        fetchAchievements();
-        fetchAiRecommendations();
-    }, []);
 
     return (
-        <View style={{ padding: 20 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Set Reminders</Text>
-            <FlatList
-                data={reminders}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={{ marginVertical: 10 }}>
-                        <Text>{item.task}</Text>
-                        <Switch value={item.active} />
-                    </View>
-                )}
+        <View style={styles.container}>
+            <Text style={styles.title}>학습 리마인더 설정</Text>
+
+            <TouchableOpacity style={styles.timeButton} onPress={() => setDatePickerVisibility(true)}>
+                <Text style={styles.buttonText}>
+                    {reminderTime ? `리마인더 시간: ${reminderTime.toLocaleTimeString()}` : '리마인더 시간 설정'}
+                </Text>
+            </TouchableOpacity>
+
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="time"
+                onConfirm={handleConfirm}
+                onCancel={() => setDatePickerVisibility(false)}
             />
 
-            <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 20 }}>Achievements</Text>
-            <FlatList
-                data={achievements}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={{ marginVertical: 10 }}>
-                        <Text>{item.title} - {item.points} points</Text>
-                    </View>
-                )}
-            />
+            <TouchableOpacity style={styles.saveButton} onPress={saveReminder}>
+                <Text style={styles.buttonText}>리마인더 저장</Text>
+            </TouchableOpacity>
 
-            <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 20 }}>AI Recommended Content</Text>
-            <FlatList
-                data={aiRecommendations}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={{ marginVertical: 10 }}>
-                        <Text>{item.content}</Text>
-                        <Button title="Learn More" />
-                    </View>
-                )}
-            />
+            <View style={styles.switchContainer}>
+                <Text style={styles.label}>AI 복습 계획 설정</Text>
+                <Switch value={isReviewEnabled} onValueChange={setIsReviewEnabled} />
+            </View>
+
+            {isReviewEnabled && (
+                <Text style={styles.aiText}>AI가 복습이 필요한 시기를 분석하여 알림을 설정합니다.</Text>
+            )}
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#fff',
+    },
+    title: {
+        fontSize: 24,
+        marginBottom: 20,
+    },
+    timeButton: {
+        padding: 10,
+        backgroundColor: '#4CAF50',
+        borderRadius: 5,
+        marginBottom: 20,
+    },
+    saveButton: {
+        padding: 10,
+        backgroundColor: '#2196F3',
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+    },
+    switchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    label: {
+        fontSize: 18,
+        marginRight: 10,
+    },
+    aiText: {
+        marginTop: 20,
+        fontSize: 16,
+        color: '#757575',
+    },
+});
 
 export default StudyReminderScreen;

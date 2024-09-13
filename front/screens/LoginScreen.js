@@ -7,7 +7,7 @@ const LoginScreen = ({ navigation }) => {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch('https://yourserver.com/api/login', {
+            const response = await fetch(`${process.env.API_URL}/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
@@ -52,10 +52,10 @@ const LoginScreen = ({ navigation }) => {
                     <Image source={require('../assets/google.png')} style={styles.socialIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => Alert.alert('Kakao 로그인')}>
-                    <Image source={require('../assets/kakao.png')} style={styles.socialIcon} />
+                    <Image source={require('../assets/kakao-talk.png')} style={styles.socialIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => Alert.alert('Naver 로그인')}>
-                    <Image source={require('../assets/naver.png')} style={styles.socialIcon} />
+                    <Image source={require('../assets/naver.jpg')} style={styles.socialIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => Alert.alert('Instagram 로그인')}>
                     <Image source={require('../assets/instagram.png')} style={styles.socialIcon} />
