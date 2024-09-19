@@ -1,55 +1,13 @@
-const db = require("../config/db");
-const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const db = require('../config/db');
+const { sendEmail } = require('../config/mailer');
+const { generateAccessToken, generateRefreshToken, generateVerificationCode } = require('../utils/authUtils');
 
 // 인증번호 저장 객체
 let verificationCodes = {
     findUsername: {}, // 아이디 찾기
     resetPassword: {} // 비밀번호 찾기 및 재설정
-}
-
-// 7자리 랜덤 숫자로 구성되는 인증 코드 생성
-const generateVerificationCode = () => {
-    return Math.floor(1000000 + Math.random() * 9000000).toString();
-}
-
-// JWT 토큰 발급 함수
-const generateAccessToken = (user) => {
-    return jwt.sign(
-        {id: user.id, username: user.username},
-        process.env.JWT_SECRET,
-        {expiresIn: '1h'} // Access Token 만료 시간
-    )
-}
-
-// 앱 종료 후 재실행 시 로그인 상태 유지를 위한 토큰 refresh 함수
-const generateRefreshToken = (user) => {
-    return jwt.sign(
-        {id: user.id, username: user.username},
-        process.env.JWT_REFRESH_SECRET, // 별도의 Refresh Token 비밀키 사용
-        {expiresIn: '7d'}, // Refresh Token 만료 시간 7일 부여
-    )
-}
-
-// 이메일 발송 함수 분리
-const sendEmail = (email, subject, text, callback) => {
-    const transporter = nodemailer.createTransport({
-        service: 'naver',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
-    });
-
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject,
-        text,
-    };
-
-    transporter.sendMail(mailOptions, callback);
 };
 
 // -------------------- 회원가입 관련 --------------------
@@ -235,7 +193,6 @@ exports.logout = (req, res) => {
 
 // -------------------- 아이디 찾기 --------------------
 
-// 아이디 찾기 이메일 인증번호 발송
 exports.sendUsernameVerificationCode = (req, res) => {
     const { email } = req.body;
 
@@ -266,7 +223,6 @@ exports.sendUsernameVerificationCode = (req, res) => {
     });
 };
 
-// 아이디 찾기 인증번호 확인 및 아이디 반환
 exports.verifyUsernameCode = (req, res) => {
     const { email, verificationCode } = req.body;
 
@@ -295,7 +251,6 @@ exports.verifyUsernameCode = (req, res) => {
 
 // -------------------- 비밀번호 찾기 및 재설정 --------------------
 
-// 비밀번호 찾기 이메일 인증번호 발송
 exports.sendPasswordResetCode = (req, res) => {
     const { username, email } = req.body;
 
@@ -326,7 +281,6 @@ exports.sendPasswordResetCode = (req, res) => {
     });
 };
 
-// 비밀번호 재설정 인증번호 확인
 exports.verifyPasswordResetCode = (req, res) => {
     const { email, verificationCode } = req.body;
 
@@ -341,7 +295,6 @@ exports.verifyPasswordResetCode = (req, res) => {
     res.status(200).json({ message: "인증이 완료되었습니다. 비밀번호를 재설정하세요." });
 };
 
-// 비밀번호 재설정
 exports.resetPassword = async (req, res) => {
     const { username, email, newPassword, confirmPassword } = req.body;
 
