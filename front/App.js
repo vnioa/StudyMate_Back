@@ -1,137 +1,95 @@
-import React, { useState, useEffect } from 'react';
+// App.js
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Image } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-// 각종 스크린 import
+// 스크린 파일들 불러오기
 import FirstScreen from './screens/FirstScreen';
-import SignUpScreen from "./screens/SignUpScreen";
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
-import ChattingScreen from './screens/ChattingScreen';
-import MyGroupScreen from './screens/MyGroupScreen';
-import MyPageScreen from './screens/MyPageScreen';
+import LoginScreen from './screens/Auth/LoginScreen';
+import SignUpScreen from './screens/Auth/SignUpScreen';
+import HomeScreen from './screens/Home/HomeScreen';
+import ChatMainScreen from './screens/Chat/ChatMainScreen';
+import ChatSettingsScreen from './screens/Chat/ChatSettingsScreen';
+import FileHubScreen from './screens/Chat/FileHubScreen';
+import NotificationScreen from './screens/Chat/NotificationScreen';
+import TaskScreen from './screens/Chat/TaskScreen';
+import ThreadReplyScreen from './screens/Chat/ThreadReplyScreen';
+import UserControlDashboardScreen from './screens/Chat/UserControlDashboardScreen';
+import GroupScreen from './screens/Group/GroupScreen';
+import MyStudyScreen from './screens/MyStudy/MyStudyScreen';
+import MyPageScreen from './screens/MyPage/MyPageScreen';
 
-// 나의 공부 관련 스크린 import
-import StudyGoalScreen from './screens/StudyGoalScreen';
-import StudyChecklistScreen from './screens/StudyChecklistScreen';
-import StudyTimerScreen from './screens/StudyTimerScreen';
-import StudyReminderScreen from './screens/StudyReminderScreen';
-import StudyMaterialScreen from './screens/StudyMaterialScreen';
-import StudyPatternAnalysisScreen from './screens/StudyPatternAnalysisScreen';
-import StudyReportScreen from './screens/StudyReportScreen';
-import StudyNoteScreen from './screens/StudyNoteScreen';
-
-// 기타 이미지 파일 import
-import homeIcon from './assets/home.png';
-import chattingIcon from './assets/chattingList.png';
-import myStudyIcon from './assets/open-book.png';
-import myPageIcon from './assets/id-card.png';
-import groupIcon from './assets/meeting.png';
-
+// 네비게이션 생성
 const Tab = createBottomTabNavigator();
-const StudyStack = createStackNavigator();
-const AuthStack = createStackNavigator();
+const Stack = createStackNavigator();
 
-// "나의 공부" 스택 네비게이션 구성
-const StudyStackNavigator = () => {
+// 메인 앱 컴포넌트
+const App = () => {
     return (
-        <StudyStack.Navigator initialRouteName="StudyGoalScreen">
-            <StudyStack.Screen name="StudyGoalScreen" component={StudyGoalScreen} />
-            <StudyStack.Screen name="StudyChecklistScreen" component={StudyChecklistScreen} />
-            <StudyStack.Screen name="StudyTimerScreen" component={StudyTimerScreen} />
-            <StudyStack.Screen name="StudyReminderScreen" component={StudyReminderScreen} />
-            <StudyStack.Screen name="StudyMaterialScreen" component={StudyMaterialScreen} />
-            <StudyStack.Screen name="StudyPatternAnalysisScreen" component={StudyPatternAnalysisScreen} />
-            <StudyStack.Screen name="StudyReportScreen" component={StudyReportScreen} />
-            <StudyStack.Screen name="StudyNoteScreen" component={StudyNoteScreen} />
-        </StudyStack.Navigator>
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="FirstScreen" screenOptions={{ headerShown: false }}>
+                {/* 초기 화면 */}
+                <Stack.Screen name="FirstScreen" component={FirstScreen} />
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+                {/* 로그인 성공 후 메인 탭 네비게이션 */}
+                <Stack.Screen name="MainTabs" component={MainTabs} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 };
 
-// 탭 네비게이션 구성
-const TabNavigator = () => {
+// 하단 탭 네비게이션 설정
+const MainTabs = () => {
     return (
         <Tab.Navigator
             initialRouteName="Home"
-            screenOptions={{
-                tabBarActiveTintColor: '#6200ee',
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home-outline';
+                    } else if (route.name === 'Chat') {
+                        iconName = focused ? 'chatbubble' : 'chatbubble-outline';
+                    } else if (route.name === 'My Study') {
+                        iconName = focused ? 'book' : 'book-outline';
+                    } else if (route.name === 'Group') {
+                        iconName = focused ? 'people' : 'people-outline';
+                    } else if (route.name === 'My Page') {
+                        iconName = focused ? 'person' : 'person-outline';
+                    }
+
+                    return <Icon name={iconName} size={size} color={color} />;
+                },
+                tabBarActiveTintColor: 'blue',
                 tabBarInactiveTintColor: 'gray',
-                headerShown: false,
-            }}
+            })}
         >
-            <Tab.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{
-                    tabBarLabel: '홈',
-                    tabBarIcon: ({ color, size }) => (
-                        <Image source={homeIcon} style={{ width: size, height: size, tintColor: color }} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Chatting"
-                component={ChattingScreen}
-                options={{
-                    tabBarLabel: '채팅방',
-                    tabBarIcon: ({ color, size }) => (
-                        <Image source={chattingIcon} style={{ width: size, height: size, tintColor: color }} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Study"
-                component={StudyStackNavigator}
-                options={{
-                    tabBarLabel: '나의 공부',
-                    tabBarIcon: ({ color, size }) => (
-                        <Image source={myStudyIcon} style={{ width: size, height: size, tintColor: color }} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="MyGroup"
-                component={MyGroupScreen}
-                options={{
-                    tabBarLabel: '나의 그룹',
-                    tabBarIcon: ({ color, size }) => (
-                        <Image source={groupIcon} style={{ width: size, height: size, tintColor: color }} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="MyPage"
-                component={MyPageScreen}
-                options={{
-                    tabBarLabel: '마이페이지',
-                    tabBarIcon: ({ color, size }) => (
-                        <Image source={myPageIcon} style={{ width: size, height: size, tintColor: color }} />
-                    ),
-                }}
-            />
+            <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            <Tab.Screen name="Chat" component={ChatStack} options={{ headerShown: false }} />
+            <Tab.Screen name="My Study" component={MyStudyScreen} options={{ headerShown: false }} />
+            <Tab.Screen name="Group" component={GroupScreen} options={{ headerShown: false }} />
+            <Tab.Screen name="My Page" component={MyPageScreen} options={{ headerShown: false }} />
         </Tab.Navigator>
     );
 };
 
-// 로그인 흐름을 관리하는 스택 네비게이션
-const AuthStackNavigator = () => {
+// 채팅 관련 스크린을 스택 네비게이션으로 관리
+const ChatStack = () => {
     return (
-        <AuthStack.Navigator initialRouteName="FirstScreen">
-            <AuthStack.Screen name="FirstScreen" component={FirstScreen} options={{ headerShown: false }} />
-            <AuthStack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }} />
-            <AuthStack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
-            <AuthStack.Screen name="HomeScreen" component={TabNavigator} options={{ headerShown: false }} />
-        </AuthStack.Navigator>
+        <Stack.Navigator initialRouteName="ChatMainScreen">
+            <Stack.Screen name="ChatMainScreen" component={ChatMainScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="ChatSettingsScreen" component={ChatSettingsScreen} />
+            <Stack.Screen name="FileHubScreen" component={FileHubScreen} />
+            <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+            <Stack.Screen name="TaskScreen" component={TaskScreen} />
+            <Stack.Screen name="ThreadReplyScreen" component={ThreadReplyScreen} />
+            <Stack.Screen name="UserControlDashboardScreen" component={UserControlDashboardScreen} />
+        </Stack.Navigator>
     );
 };
 
-// App 메인 구성
-export default function App() {
-    return (
-        <NavigationContainer>
-            <AuthStackNavigator />
-        </NavigationContainer>
-    );
-}
+export default App;
