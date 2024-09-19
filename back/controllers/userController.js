@@ -1,10 +1,11 @@
+// controllers/userController.js
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 const { sendEmail } = require('../config/mailer');
 const { generateAccessToken, generateRefreshToken, generateVerificationCode } = require('../utils/authUtils');
+const { validationResult } = require('express-validator');
 
-// 인증번호 저장 객체
 let verificationCodes = {
     findUsername: {}, // 아이디 찾기
     resetPassword: {} // 비밀번호 찾기 및 재설정
@@ -12,7 +13,7 @@ let verificationCodes = {
 
 // -------------------- 회원가입 관련 --------------------
 
-// 아이디 중복 확인 로직
+// 아이디 중복 확인
 exports.checkUsername = (req, res) => {
     const { username } = req.body;
 
@@ -32,7 +33,7 @@ exports.checkUsername = (req, res) => {
     });
 };
 
-// 회원가입 로직
+// 회원가입
 exports.signup = async (req, res) => {
     const { username, password, confirmPassword, name, birthDate, phone, email } = req.body;
 
@@ -81,7 +82,7 @@ exports.signup = async (req, res) => {
     }
 };
 
-// 이메일 인증 코드 검증 로직
+// 이메일 인증 코드 검증
 exports.verifyEmail = (req, res) => {
     const { email, code } = req.body;
 
@@ -110,7 +111,7 @@ exports.verifyEmail = (req, res) => {
 
 // -------------------- 로그인/로그아웃 관련 --------------------
 
-// 로그인 로직
+// 로그인
 exports.login = async (req, res) => {
     const { username, password } = req.body;
 
@@ -138,6 +139,7 @@ exports.login = async (req, res) => {
             const accessToken = generateAccessToken(user);
             const refreshToken = generateRefreshToken(user);
 
+            // 토큰을 DB에 저장하여 세션 관리
             const updateQuery = `UPDATE users SET refresh_token = ? WHERE id = ?`;
             db.query(updateQuery, [refreshToken, user.id], (err) => {
                 if (err) {
@@ -178,7 +180,7 @@ exports.refreshToken = (req, res) => {
     }
 };
 
-// 로그아웃 로직
+// 로그아웃
 exports.logout = (req, res) => {
     const { id } = req.user;
 
@@ -320,4 +322,79 @@ exports.resetPassword = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: "서버 오류가 발생했습니다." });
     }
+};
+
+// -------------------- 회원탈퇴 및 모든 기록 삭제 --------------------
+
+exports.deleteUser = (req, res) => {
+    const { userId } = req.user; // JWT 토큰에서 추출한 사용자 ID
+
+    // 유저와 관련된 모든 활동을 삭제
+    const deleteUserActivityQueries = [
+        `DELETE FROM voteslog WHERE user_id = ?`,
+        `DELETE FROM voteoptions WHERE voteId IN (SELECT id FROM votes WHERE chatRoomId IN (SELECT chatRoomId FROM chatparticipants WHERE user_id = ?))`,
+        `DELETE FROM votes WHERE chatRoomId IN (SELECT chatRoomId FROM chatparticipants WHERE user_id = ?)`,
+        `DELETE FROM posts WHERE chatRoomId IN (SELECT chatRoomId FROM chatparticipants WHERE user_id = ?)`,
+        `DELETE FROM announcements WHERE chatRoomId IN (SELECT chatRoomId FROM chatparticipants WHERE user_id = ?)`,
+        `DELETE FROM files WHERE chatRoomId IN (SELECT chatRoomId FROM chatparticipants WHERE user_id = ?)`,
+        `DELETE FROM messages WHERE sender = ?`,
+        `DELETE FROM chatparticipants WHERE user_id = ?`,
+        `DELETE FROM chatrooms WHERE id NOT IN (SELECT DISTINCT chatRoomId FROM chatparticipants)`, // 채팅방에 남은 참가자가 없으면 삭제
+    ];
+
+    const deleteUserQuery = `DELETE FROM users WHERE id = ?`;
+
+    // 모든 활동 삭제 실행
+    db.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({ error: '데이터베이스 연결 중 오류가 발생했습니다.' });
+        }
+
+        connection.beginTransaction((transactionError) => {
+            if (transactionError) {
+                connection.release();
+                return res.status(500).json({ error: '트랜잭션 시작 중 오류가 발생했습니다.' });
+            }
+
+            const executeQueries = deleteUserActivityQueries.map((query) => {
+                return new Promise((resolve, reject) => {
+                    connection.query(query, [userId], (queryErr) => {
+                        if (queryErr) reject(queryErr);
+                        else resolve();
+                    });
+                });
+            });
+
+            // 모든 활동 삭제 후 유저 삭제
+            Promise.all(executeQueries)
+                .then(() => {
+                    connection.query(deleteUserQuery, [userId], (deleteErr) => {
+                        if (deleteErr) {
+                            return connection.rollback(() => {
+                                connection.release();
+                                res.status(500).json({ error: '회원탈퇴 처리 중 오류가 발생했습니다.' });
+                            });
+                        }
+
+                        connection.commit((commitErr) => {
+                            if (commitErr) {
+                                return connection.rollback(() => {
+                                    connection.release();
+                                    res.status(500).json({ error: '커밋 중 오류가 발생했습니다.' });
+                                });
+                            }
+
+                            connection.release();
+                            res.status(200).json({ message: '회원탈퇴가 완료되었습니다. 모든 활동 기록이 삭제되었습니다.' });
+                        });
+                    });
+                })
+                .catch((error) => {
+                    connection.rollback(() => {
+                        connection.release();
+                        res.status(500).json({ error: '회원탈퇴 처리 중 오류가 발생했습니다.' });
+                    });
+                });
+        });
+    });
 };

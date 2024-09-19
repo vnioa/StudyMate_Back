@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/back/controllers/auth.js" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/back/controllers/chatController.js" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/back/controllers/userController.js" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/back/middlewares/userMiddleware.js" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/back/models/Chat.js" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/back/models/Room.js" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/back/routes/roomRoutes.js" dialect="GenericSQL" />
   </component>
 </project>

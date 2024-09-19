@@ -1,5 +1,5 @@
 const express = require('express');
-const authController = require('../controllers/auth'); // auth.js에서 정의한 컨트롤러 함수들
+const authController = require('../controllers/authController'); // auth.js에서 정의한 컨트롤러 함수들
 
 const router = express.Router();
 
