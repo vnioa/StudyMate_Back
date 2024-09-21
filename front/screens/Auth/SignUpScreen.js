@@ -17,7 +17,7 @@ const SignUpScreen = ({ navigation }) => {
 
     const handleCheckUsername = async () => {
         try {
-            const response = await fetch(`${process.env.API_URL}/api/check-username`, {
+            const response = await fetch('http://121.127.165.43:3000/routes/users/check-username', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username }),
@@ -29,13 +29,14 @@ const SignUpScreen = ({ navigation }) => {
                 Alert.alert('아이디 중복 확인', '아이디가 이미 사용 중입니다.');
             }
         } catch (error) {
+            console.error('Error: ', error);
             Alert.alert('오류', '아이디 중복 확인 중 오류가 발생했습니다.');
         }
     };
 
     const handleSendVerificationCode = async () => {
         try {
-            const response = await fetch(`${process.env.API_URL}/api/send-verification`, {
+            const response = await fetch('http://121.127.165.43:3000/routes/users/send-verification', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
@@ -72,23 +73,50 @@ const SignUpScreen = ({ navigation }) => {
             return;
         }
 
+        // 아이디, 비밀번호 형식 검사
+        const usernameRegex = /^[a-zA-Z0-9]{5,16}$/;
+        const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,20}$/;
+
+        if (!usernameRegex.test(username)) {
+            Alert.alert('오류', '아이디는 5~16자리 영문+숫자 형식이어야 합니다.');
+            return;
+        }
+
+        if (!passwordRegex.test(password)) {
+            Alert.alert('오류', '비밀번호는 10~20자리 영문, 숫자, 특수문자를 포함해야 합니다.');
+            return;
+        }
+
         try {
-            const response = await fetch(`${process.env.API_URL}/api/signup`, {
+            const response = await fetch('http://121.127.165.43:3000/routes/users/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, name, birthDate: birthDate.toISOString().split('T')[0], phone, email }),
+                body: JSON.stringify({
+                    username,
+                    password,
+                    name,
+                    birthDate: birthDate.toISOString().split('T')[0],
+                    phone,
+                    email
+                }),
             });
+
             const data = await response.json();
-            if (data.success) {
+
+            if (response.ok && data.success) {
                 Alert.alert('회원가입 성공', '회원가입이 완료되었습니다.');
-                navigation.navigate('LoginScreen');
+                navigation.navigate('FirstScreen');
             } else {
-                Alert.alert('오류', '회원가입에 실패했습니다.');
+                const errorMessage = data.error || '회원가입에 실패했습니다.';
+                Alert.alert('오류', errorMessage);
             }
         } catch (error) {
+            console.error('회원가입 중 오류:', error);
             Alert.alert('오류', '회원가입 중 문제가 발생했습니다.');
         }
     };
+
+
 
     const onChangeDate = (event, selectedDate) => {
         const currentDate = selectedDate || birthDate;

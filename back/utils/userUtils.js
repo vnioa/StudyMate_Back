@@ -21,7 +21,7 @@ exports.generateRefreshToken = (user) => {
 
 // 이메일 인증 및 비밀번호 재설정용 코드 생성
 exports.generateVerificationCode = () => {
-    return crypto.randomBytes(3).toString('hex').toUpperCase();
+    return Math.floor(1000000 + Math.random() * 9000000).toString(); // 7자리 랜덤 숫자 생성
 };
 
 // 이메일 발송 유틸리티

@@ -1,88 +1,82 @@
-// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image, View } from 'react-native';
 
-// 스크린 파일들 불러오기
-import FirstScreen from './screens/FirstScreen';
+// Auth Screens
 import LoginScreen from './screens/Auth/LoginScreen';
 import SignUpScreen from './screens/Auth/SignUpScreen';
+
+// Home Screens
 import HomeScreen from './screens/Home/HomeScreen';
+import FirstScreen from './screens/FirstScreen'; // Assuming this is part of the initial flow
+
+// Chat Screens
 import ChatMainScreen from './screens/Chat/ChatMainScreen';
 import ChatSettingsScreen from './screens/Chat/ChatSettingsScreen';
+import DashboardScreen from './screens/Chat/DashboardScreen';
 import FileHubScreen from './screens/Chat/FileHubScreen';
 import NotificationScreen from './screens/Chat/NotificationScreen';
 import TaskScreen from './screens/Chat/TaskScreen';
 import ThreadReplyScreen from './screens/Chat/ThreadReplyScreen';
 import UserControlDashboardScreen from './screens/Chat/UserControlDashboardScreen';
+
+// Group Screens
 import GroupScreen from './screens/Group/GroupScreen';
-import MyStudyScreen from './screens/MyStudy/MyStudyScreen';
+
+// MyPage Screens
 import MyPageScreen from './screens/MyPage/MyPageScreen';
 
-// 네비게이션 생성
-const Tab = createBottomTabNavigator();
+// Icons for Bottom Tab
+import homeIcon from './assets/home.png';
+import chatIcon from './assets/conversation.png';
+import groupIcon from './assets/meeting.png';
+import myPageIcon from './assets/profile.png';
+
+// Create navigators
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-// 메인 앱 컴포넌트
-const App = () => {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="FirstScreen" screenOptions={{ headerShown: false }}>
-                {/* 초기 화면 */}
-                <Stack.Screen name="FirstScreen" component={FirstScreen} />
-                <Stack.Screen name="LoginScreen" component={LoginScreen} />
-                <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-                {/* 로그인 성공 후 메인 탭 네비게이션 */}
-                <Stack.Screen name="MainTabs" component={MainTabs} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
-};
-
-// 하단 탭 네비게이션 설정
-const MainTabs = () => {
+// Bottom Tab Navigator
+function MainTabNavigator() {
     return (
         <Tab.Navigator
-            initialRouteName="Home"
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
 
                     if (route.name === 'Home') {
-                        iconName = focused ? 'home' : 'home-outline';
+                        iconName = homeIcon;
                     } else if (route.name === 'Chat') {
-                        iconName = focused ? 'chatbubble' : 'chatbubble-outline';
-                    } else if (route.name === 'My Study') {
-                        iconName = focused ? 'book' : 'book-outline';
+                        iconName = chatIcon;
                     } else if (route.name === 'Group') {
-                        iconName = focused ? 'people' : 'people-outline';
-                    } else if (route.name === 'My Page') {
-                        iconName = focused ? 'person' : 'person-outline';
+                        iconName = groupIcon;
+                    } else if (route.name === 'MyPage') {
+                        iconName = myPageIcon;
                     }
 
-                    return <Icon name={iconName} size={size} color={color} />;
+                    return <Image source={iconName} style={{ width: size, height: size, tintColor: color }} />;
                 },
-                tabBarActiveTintColor: 'blue',
+                tabBarActiveTintColor: 'tomato',
                 tabBarInactiveTintColor: 'gray',
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-            <Tab.Screen name="Chat" component={ChatStack} options={{ headerShown: false }} />
-            <Tab.Screen name="My Study" component={MyStudyScreen} options={{ headerShown: false }} />
-            <Tab.Screen name="Group" component={GroupScreen} options={{ headerShown: false }} />
-            <Tab.Screen name="My Page" component={MyPageScreen} options={{ headerShown: false }} />
+            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Chat" component={ChatStackNavigator} />
+            <Tab.Screen name="Group" component={GroupScreen} />
+            <Tab.Screen name="MyPage" component={MyPageScreen} />
         </Tab.Navigator>
     );
-};
+}
 
-// 채팅 관련 스크린을 스택 네비게이션으로 관리
-const ChatStack = () => {
+// Chat Stack Navigator
+function ChatStackNavigator() {
     return (
-        <Stack.Navigator initialRouteName="ChatMainScreen">
-            <Stack.Screen name="ChatMainScreen" component={ChatMainScreen} options={{ headerShown: false }} />
+        <Stack.Navigator>
+            <Stack.Screen name="ChatMainScreen" component={ChatMainScreen} />
             <Stack.Screen name="ChatSettingsScreen" component={ChatSettingsScreen} />
+            <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
             <Stack.Screen name="FileHubScreen" component={FileHubScreen} />
             <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
             <Stack.Screen name="TaskScreen" component={TaskScreen} />
@@ -90,6 +84,24 @@ const ChatStack = () => {
             <Stack.Screen name="UserControlDashboardScreen" component={UserControlDashboardScreen} />
         </Stack.Navigator>
     );
-};
+}
 
-export default App;
+// Root Stack Navigator
+function RootStackNavigator() {
+    return (
+        <Stack.Navigator initialRouteName="FirstScreen">
+            <Stack.Screen name="FirstScreen" component={FirstScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="MainTabNavigator" component={MainTabNavigator} options={{ headerShown: false }} />
+        </Stack.Navigator>
+    );
+}
+
+export default function App() {
+    return (
+        <NavigationContainer>
+            <RootStackNavigator />
+        </NavigationContainer>
+    );
+}

@@ -49,16 +49,16 @@ const LoginScreen = ({ navigation }) => {
 
             <View style={styles.socialLoginContainer}>
                 <TouchableOpacity onPress={() => Alert.alert('Google 로그인')}>
-                    <Image source={require('../assets/google.png')} style={styles.socialIcon} />
+                    <Image source={require('../../assets/google.png')} style={styles.socialIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => Alert.alert('Kakao 로그인')}>
-                    <Image source={require('../assets/kakao-talk.png')} style={styles.socialIcon} />
+                    <Image source={require('../../assets/kakao-talk.png')} style={styles.socialIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => Alert.alert('Naver 로그인')}>
-                    <Image source={require('../assets/naver.jpg')} style={styles.socialIcon} />
+                    <Image source={require('../../assets/naver.jpg')} style={styles.socialIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => Alert.alert('Instagram 로그인')}>
-                    <Image source={require('../assets/instagram.png')} style={styles.socialIcon} />
+                    <Image source={require('../../assets/instagram.png')} style={styles.socialIcon} />
                 </TouchableOpacity>
             </View>
 

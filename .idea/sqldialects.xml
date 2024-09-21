@@ -6,6 +6,8 @@
     <file url="file://$PROJECT_DIR$/back/middlewares/userMiddleware.js" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/back/models/Chat.js" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/back/models/Room.js" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/back/models/User.js" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/back/routes/roomRoutes.js" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/back/utils/socketUtils.js" dialect="GenericSQL" />
   </component>
 </project>

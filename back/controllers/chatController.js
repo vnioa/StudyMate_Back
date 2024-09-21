@@ -1,15 +1,7 @@
 // controllers/chatController.js
 const db = require('../config/db'); // DB 연결 설정
 const { validationResult } = require('express-validator');
-const fs = require('fs'); // 파일 시스템 접근
-const path = require('path');
-const WebSocket = require('../utils/webSocket'); // WebSocket 연결 설정
 const { v4: uuidv4 } = require('uuid'); // 파일명 유니크 처리
-
-// WebSocket 통합 로직 - 메시지 전송 시 실시간 알림
-const sendMessageToClients = (message) => {
-    WebSocket.broadcast(JSON.stringify(message));
-};
 
 // 유효성 검사 오류 처리 함수
 const handleValidationErrors = (req, res) => {
@@ -62,14 +54,15 @@ exports.sendMessage = async (req, res) => {
             `
                 SELECT m.id, m.content, m.created_at, u.username AS senderName, u.profile_picture AS senderProfile
                 FROM messages m
-                         JOIN users u ON m.sender = u.id
+                JOIN users u ON m.sender = u.id
                 WHERE m.id = ?
             `,
             [result.insertId]
         );
 
-        // WebSocket 통합: 클라이언트로 메시지 전송
-        sendMessageToClients({ type: 'newMessage', data: newMessage[0] });
+        // Socket.IO 통합: 클라이언트로 메시지 전송
+        const io = req.app.get('socketio');
+        io.to(chatRoomId).emit('newMessage', newMessage[0]);
 
         res.json(newMessage[0]);
     } catch (error) {
@@ -95,13 +88,14 @@ exports.editMessage = async (req, res) => {
             `
                 SELECT m.id, m.content, m.updated_at, u.username AS senderName, u.profile_picture AS senderProfile
                 FROM messages m
-                         JOIN users u ON m.sender = u.id
+                JOIN users u ON m.sender = u.id
                 WHERE m.id = ?
             `,
             [messageId]
         );
 
-        sendMessageToClients({ type: 'editedMessage', data: updatedMessage[0] });
+        const io = req.app.get('socketio');
+        io.emit('editedMessage', updatedMessage[0]);
 
         res.json(updatedMessage[0]);
     } catch (error) {
@@ -117,7 +111,8 @@ exports.deleteMessage = async (req, res) => {
     try {
         await db.query('DELETE FROM messages WHERE id = ?', [messageId]);
 
-        sendMessageToClients({ type: 'deletedMessage', data: { id: messageId } });
+        const io = req.app.get('socketio');
+        io.emit('deletedMessage', { id: messageId });
 
         res.json({ message: 'Message deleted successfully' });
     } catch (error) {
@@ -238,7 +233,7 @@ exports.getVoteResults = async (req, res) => {
             `
                 SELECT vo.option_text, COUNT(vl.id) as votes
                 FROM vote_options vo
-                         LEFT JOIN votes_log vl ON vo.id = vl.vote_option_id
+                LEFT JOIN votes_log vl ON vo.id = vl.vote_option_id
                 WHERE vo.voteId = ?
                 GROUP BY vo.id
             `,
@@ -389,101 +384,94 @@ exports.uploadFile = async (req, res) => {
     }
 };
 
-// WebSocket 메시지 이벤트 처리
-WebSocket.on('connection', (socket) => {
-    console.log('New WebSocket connection established');
+// Socket.IO 이벤트 처리
+module.exports.initializeSocketIO = (io) => {
+    io.on('connection', (socket) => {
+        console.log('New Socket.IO connection established');
 
-    // 클라이언트로부터 메시지 수신
-    socket.on('message', async (msg) => {
-        try {
-            const parsedMessage = JSON.parse(msg);
+        // 채팅방에 가입
+        socket.on('joinRoom', (roomId) => {
+            socket.join(roomId);
+            console.log(`User joined room: ${roomId}`);
+        });
 
-            switch (parsedMessage.type) {
-                case 'sendMessage':
-                    // 메시지 전송 처리
-                    const { chatRoomId, content, sender } = parsedMessage.data;
+        // 메시지 전송
+        socket.on('sendMessage', async (data) => {
+            const { chatRoomId, content, sender } = data;
 
-                    // 데이터베이스에 메시지 저장
-                    const [result] = await db.query(
-                        `
-                            INSERT INTO messages (chatRoomId, content, sender, created_at)
-                            VALUES (?, ?, ?, NOW())
-                        `,
-                        [chatRoomId, content, sender]
-                    );
+            try {
+                const [result] = await db.query(
+                    `
+                        INSERT INTO messages (chatRoomId, content, sender, created_at)
+                        VALUES (?, ?, ?, NOW())
+                    `,
+                    [chatRoomId, content, sender]
+                );
 
-                    // 저장된 메시지 조회
-                    const [newMessage] = await db.query(
-                        `
-                            SELECT m.id, m.content, m.created_at, u.username AS senderName, u.profile_picture AS senderProfile
-                            FROM messages m
-                                     JOIN users u ON m.sender = u.id
-                            WHERE m.id = ?
-                        `,
-                        [result.insertId]
-                    );
+                const [newMessage] = await db.query(
+                    `
+                        SELECT m.id, m.content, m.created_at, u.username AS senderName, u.profile_picture AS senderProfile
+                        FROM messages m
+                        JOIN users u ON m.sender = u.id
+                        WHERE m.id = ?
+                    `,
+                    [result.insertId]
+                );
 
-                    // 모든 클라이언트에게 전송
-                    WebSocket.broadcast(JSON.stringify({ type: 'newMessage', data: newMessage[0] }));
-                    break;
-
-                case 'editMessage':
-                    // 메시지 수정 처리
-                    const { messageId, newContent } = parsedMessage.data;
-
-                    await db.query(
-                        `
-                            UPDATE messages SET content = ?, updated_at = NOW()
-                            WHERE id = ?
-                        `,
-                        [newContent, messageId]
-                    );
-
-                    const [updatedMessage] = await db.query(
-                        `
-                            SELECT m.id, m.content, m.updated_at, u.username AS senderName, u.profile_picture AS senderProfile
-                            FROM messages m
-                                     JOIN users u ON m.sender = u.id
-                            WHERE m.id = ?
-                        `,
-                        [messageId]
-                    );
-
-                    // 수정된 메시지를 모든 클라이언트에게 전송
-                    WebSocket.broadcast(JSON.stringify({ type: 'editedMessage', data: updatedMessage[0] }));
-                    break;
-
-                case 'deleteMessage':
-                    // 메시지 삭제 처리
-                    const { messageIdToDelete } = parsedMessage.data;
-
-                    await db.query('DELETE FROM messages WHERE id = ?', [messageIdToDelete]);
-
-                    // 삭제된 메시지 알림을 모든 클라이언트에게 전송
-                    WebSocket.broadcast(JSON.stringify({ type: 'deletedMessage', data: { id: messageIdToDelete } }));
-                    break;
-
-                default:
-                    console.log('Unknown message type:', parsedMessage.type);
-                    break;
+                // 해당 채팅방에 메시지 전송
+                io.to(chatRoomId).emit('newMessage', newMessage[0]);
+            } catch (error) {
+                console.error('Failed to send message:', error);
+                socket.emit('error', 'Failed to send message');
             }
-        } catch (error) {
-            console.error('Error processing WebSocket message:', error);
-            socket.send(JSON.stringify({ type: 'error', message: 'Failed to process the message.' }));
-        }
-    });
+        });
 
-    // 연결 해제 처리
-    socket.on('close', () => {
-        console.log('WebSocket connection closed');
-    });
-});
+        // 메시지 수정
+        socket.on('editMessage', async (data) => {
+            const { messageId, newContent } = data;
 
-// WebSocket 메시지 전송 기능
-WebSocket.broadcast = (data) => {
-    WebSocket.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send(data);
-        }
+            try {
+                await db.query(
+                    `
+                        UPDATE messages SET content = ?, updated_at = NOW()
+                        WHERE id = ?
+                    `,
+                    [newContent, messageId]
+                );
+
+                const [updatedMessage] = await db.query(
+                    `
+                        SELECT m.id, m.content, m.updated_at, u.username AS senderName, u.profile_picture AS senderProfile
+                        FROM messages m
+                        JOIN users u ON m.sender = u.id
+                        WHERE m.id = ?
+                    `,
+                    [messageId]
+                );
+
+                io.emit('editedMessage', updatedMessage[0]);
+            } catch (error) {
+                console.error('Failed to edit message:', error);
+                socket.emit('error', 'Failed to edit message');
+            }
+        });
+
+        // 메시지 삭제
+        socket.on('deleteMessage', async (data) => {
+            const { messageId } = data;
+
+            try {
+                await db.query('DELETE FROM messages WHERE id = ?', [messageId]);
+                io.emit('deletedMessage', { id: messageId });
+            } catch (error) {
+                console.error('Failed to delete message:', error);
+                socket.emit('error', 'Failed to delete message');
+            }
+        });
+
+        // 연결 해제 처리
+        socket.on('disconnect', () => {
+            console.log('Socket.IO connection closed');
+        });
     });
 };

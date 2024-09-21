@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 const { sendEmail } = require('../config/mailer');
-const { generateAccessToken, generateRefreshToken, generateVerificationCode } = require('../utils/authUtils');
+const { generateAccessToken, generateRefreshToken, generateVerificationCode } = require('../utils/userUtils');
 const { validationResult } = require('express-validator');
 
 let verificationCodes = {
@@ -14,6 +14,7 @@ let verificationCodes = {
 // -------------------- 회원가입 관련 --------------------
 
 // 아이디 중복 확인
+// 아이디 중복 확인 함수 (userController.js)
 exports.checkUsername = (req, res) => {
     const { username } = req.body;
 
@@ -26,61 +27,79 @@ exports.checkUsername = (req, res) => {
         if (err) {
             return res.status(500).json({ error: "서버 오류가 발생했습니다." });
         }
+        // 여기서 오류가 나는 부분을 점검합니다.
         if (results.length > 0) {
-            return res.status(409).json({ error: "이미 사용 중인 아이디입니다." });
+            // results.length가 0보다 크면 아이디가 존재하는 것이므로 이미 사용 중
+            return res.status(409).json({ isAvailable: false, message: "이미 사용 중인 아이디입니다." });
         }
-        res.status(200).json({ message: "사용 가능한 아이디입니다." });
+        // results.length가 0이면 사용 가능한 아이디
+        res.status(200).json({ isAvailable: true, message: "사용 가능한 아이디입니다." });
     });
 };
 
+// 이메일 인증번호 발송 함수
+exports.sendVerificationCode = (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: '이메일을 입력해 주세요.' });
+    }
+
+    // 인증 코드 생성
+    const verificationCode = generateVerificationCode();
+
+    // 이메일 발송
+    sendEmail(email, 'StudyMate 인증 코드', `인증 코드는 ${verificationCode}입니다.`, (error) => {
+        if (error) {
+            console.error('이메일 발송 중 오류:', error);
+            return res.status(500).json({ error: '이메일 발송 중 오류가 발생했습니다.' });
+        }
+
+        // 클라이언트로 인증 코드 전송 (실제 서비스에서는 이 부분을 제외하고 사용자에게만 발송하도록 해야 함)
+        res.status(200).json({ success: true, code: verificationCode });
+    });
+};
+
+
 // 회원가입
 exports.signup = async (req, res) => {
-    const { username, password, confirmPassword, name, birthDate, phone, email } = req.body;
-
-    const usernameRegex = /^[a-zA-Z0-9]{5,16}$/;
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,20}$/;
-
-    if (!usernameRegex.test(username)) {
-        return res.status(400).json({ error: '아이디는 5~16자리 영문+숫자 형식이어야 합니다.' });
-    }
-
-    if (!passwordRegex.test(password)) {
-        return res.status(400).json({ error: '비밀번호는 10~20자리 영문, 숫자, 특수문자를 포함해야 합니다.' });
-    }
-
-    if (password !== confirmPassword) {
-        return res.status(400).json({ error: '비밀번호가 일치하지 않습니다.' });
-    }
+    const { username, password, name, birthDate, phone, email } = req.body;
 
     try {
+        // DB에서 아이디 중복 확인
+        const checkUsernameQuery = 'SELECT id FROM users WHERE username = ?';
+        const [usernameCheckResults] = await db.query(checkUsernameQuery, [username]);
+
+        if (usernameCheckResults.length > 0) {
+            return res.status(409).json({ success: false, error: '이미 사용 중인 아이디입니다.' });
+        }
+
+        // 이메일 인증 여부 확인
+        const checkEmailQuery = 'SELECT email_verified FROM users WHERE email = ?';
+        const [emailCheckResults] = await db.query(checkEmailQuery, [email]);
+
+        if (emailCheckResults.length === 0 || !emailCheckResults[0].email_verified) {
+            return res.status(400).json({ success: false, error: '이메일 인증이 완료되지 않았습니다.' });
+        }
+
+        // 비밀번호 해싱
         const hashedPassword = await bcrypt.hash(password, 10);
-        const verificationCode = generateVerificationCode();
         const formattedPhone = phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
 
-        const query = `INSERT INTO users (username, password, name, birth_date, phone, email, verification_token) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-        db.query(
-            query,
-            [username, hashedPassword, name, birthDate, formattedPhone, email, verificationCode],
-            (err, results) => {
-                if (err) {
-                    if (err.code === 'ER_DUP_ENTRY') {
-                        return res.status(409).json({ error: '아이디 또는 이메일이 이미 존재합니다.' });
-                    }
-                    return res.status(500).json({ error: '회원가입 중 오류가 발생했습니다.' });
-                }
+        // 사용자 정보 DB에 저장
+        const query = `INSERT INTO users (username, password, name, birth_date, phone, email) VALUES (?, ?, ?, ?, ?, ?)`;
+        await db.query(query, [username, hashedPassword, name, birthDate, formattedPhone, email]);
 
-                sendEmail(email, 'StudyMate 이메일 인증 코드', `인증 코드는 ${verificationCode}입니다.`, (error) => {
-                    if (error) {
-                        return res.status(500).json({ error: '이메일 발송 중 오류가 발생했습니다.' });
-                    }
-                    res.status(201).json({ message: '회원가입이 완료되었습니다. 이메일을 확인하여 인증 코드를 입력해주세요.' });
-                });
-            }
-        );
+        // 회원가입 성공 메시지 전송
+        res.status(201).json({ success: true, message: '회원가입이 성공적으로 완료되었습니다.' });
     } catch (error) {
-        res.status(500).json({ error: '서버 오류가 발생했습니다.' });
+        console.error('회원가입 중 오류:', error);
+        res.status(500).json({ success: false, error: '회원가입 중 오류가 발생했습니다.' });
     }
 };
+
+
+
 
 // 이메일 인증 코드 검증
 exports.verifyEmail = (req, res) => {
