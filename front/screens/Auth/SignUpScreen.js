@@ -14,6 +14,7 @@ const SignUpScreen = ({ navigation }) => {
     const [isVerified, setIsVerified] = useState(false);
     const [sentCode, setSentCode] = useState('');
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const [isUsernameChecked, setIsUsernameChecked] = useState(false); // 중복 확인 상태 추가
 
     const handleCheckUsername = async () => {
         try {
@@ -25,12 +26,15 @@ const SignUpScreen = ({ navigation }) => {
             const data = await response.json();
             if (data.isAvailable) {
                 Alert.alert('아이디 중복 확인', '아이디가 사용 가능합니다.');
+                setIsUsernameChecked(true); // 중복 확인 성공 시 상태 변경
             } else {
                 Alert.alert('아이디 중복 확인', '아이디가 이미 사용 중입니다.');
+                setIsUsernameChecked(false); // 중복 확인 실패 시 상태 변경
             }
         } catch (error) {
             console.error('Error: ', error);
             Alert.alert('오류', '아이디 중복 확인 중 오류가 발생했습니다.');
+            setIsUsernameChecked(false);
         }
     };
 
@@ -53,16 +57,41 @@ const SignUpScreen = ({ navigation }) => {
         }
     };
 
-    const handleVerifyCode = () => {
+    const handleVerifyCode = async () => {
         if (verificationCode === sentCode) {
-            setIsVerified(true);
-            Alert.alert('인증 완료', '이메일 인증이 완료되었습니다.');
+            try {
+                // 이메일 인증 완료 상태를 서버에 전송
+                const response = await fetch('http://121.127.165.43:3000/routes/users/verify-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, code: verificationCode }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    setIsVerified(true);
+                    Alert.alert('인증 완료', '이메일 인증이 완료되었습니다.');
+                } else {
+                    console.error('인증 실패:', data.error); // 실패 이유를 콘솔에 기록
+                    Alert.alert('오류', '이메일 인증 중 문제가 발생했습니다.');
+                }
+            } catch (error) {
+                console.error('이메일 인증 요청 중 오류:', error); // 네트워크 오류나 기타 문제를 기록
+                Alert.alert('오류', '이메일 인증 중 문제가 발생했습니다.');
+            }
         } else {
             Alert.alert('오류', '인증번호가 일치하지 않습니다.');
         }
     };
 
+
     const handleSignUp = async () => {
+        if (!isUsernameChecked) {
+            Alert.alert('오류', '아이디 중복 확인을 먼저 해주세요.');
+            return;
+        }
+
         if (!isVerified) {
             Alert.alert('오류', '이메일 인증을 완료해주세요.');
             return;
@@ -97,7 +126,9 @@ const SignUpScreen = ({ navigation }) => {
                     name,
                     birthDate: birthDate.toISOString().split('T')[0],
                     phone,
-                    email
+                    email,
+                    isUsernameChecked, // 중복 확인 상태를 서버로 전달
+                    isVerified, // 이메일 인증 상태 서버로 전달
                 }),
             });
 
@@ -115,8 +146,6 @@ const SignUpScreen = ({ navigation }) => {
             Alert.alert('오류', '회원가입 중 문제가 발생했습니다.');
         }
     };
-
-
 
     const onChangeDate = (event, selectedDate) => {
         const currentDate = selectedDate || birthDate;
@@ -249,9 +278,9 @@ const SignUpScreen = ({ navigation }) => {
             </View>
 
             <TouchableOpacity
-                style={[styles.signUpButton, !isVerified && { backgroundColor: '#ccc' }]}
+                style={[styles.signUpButton, (!isVerified || !isUsernameChecked) && { backgroundColor: '#ccc' }]}
                 onPress={handleSignUp}
-                disabled={!isVerified || password !== confirmPassword}
+                disabled={!isVerified || !isUsernameChecked || password !== confirmPassword}
             >
                 <Text style={styles.signUpButtonText}>회원가입</Text>
             </TouchableOpacity>

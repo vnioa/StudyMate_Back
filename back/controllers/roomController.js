@@ -1,4 +1,4 @@
-// controllers/roomController.js
+// roomController.js
 const Room = require('../models/Room');
 const { validationResult } = require('express-validator');
 

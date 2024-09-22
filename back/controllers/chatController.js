@@ -1,5 +1,5 @@
-// controllers/chatController.js
-const db = require('../config/db'); // DB 연결 설정
+// chatController.js
+const db = require('../config/db'); // executeQuery 함수를 사용하는 비동기 DB 연결 설정
 const { validationResult } = require('express-validator');
 const { v4: uuidv4 } = require('uuid'); // 파일명 유니크 처리
 
@@ -17,11 +17,11 @@ exports.getMessages = async (req, res) => {
     const { chatRoomId } = req.query;
 
     try {
-        const [messages] = await db.query(
+        const messages = await db.executeQuery(
             `
                 SELECT m.id, m.content, m.created_at, u.username AS senderName, u.profile_picture AS senderProfile
                 FROM messages m
-                         JOIN users u ON m.sender = u.id
+                JOIN users u ON m.sender = u.id
                 WHERE m.chatRoomId = ?
                 ORDER BY m.created_at ASC
             `,
@@ -42,7 +42,7 @@ exports.sendMessage = async (req, res) => {
     if (validationError) return validationError;
 
     try {
-        const [result] = await db.query(
+        const result = await db.executeQuery(
             `
                 INSERT INTO messages (chatRoomId, content, sender, created_at)
                 VALUES (?, ?, ?, NOW())
@@ -50,7 +50,7 @@ exports.sendMessage = async (req, res) => {
             [chatRoomId, content, sender]
         );
 
-        const [newMessage] = await db.query(
+        const newMessage = await db.executeQuery(
             `
                 SELECT m.id, m.content, m.created_at, u.username AS senderName, u.profile_picture AS senderProfile
                 FROM messages m
@@ -76,7 +76,7 @@ exports.editMessage = async (req, res) => {
     const { messageId, newContent } = req.body;
 
     try {
-        await db.query(
+        await db.executeQuery(
             `
                 UPDATE messages SET content = ?, updated_at = NOW()
                 WHERE id = ?
@@ -84,7 +84,7 @@ exports.editMessage = async (req, res) => {
             [newContent, messageId]
         );
 
-        const [updatedMessage] = await db.query(
+        const updatedMessage = await db.executeQuery(
             `
                 SELECT m.id, m.content, m.updated_at, u.username AS senderName, u.profile_picture AS senderProfile
                 FROM messages m
@@ -109,7 +109,7 @@ exports.deleteMessage = async (req, res) => {
     const { messageId } = req.params;
 
     try {
-        await db.query('DELETE FROM messages WHERE id = ?', [messageId]);
+        await db.executeQuery('DELETE FROM messages WHERE id = ?', [messageId]);
 
         const io = req.app.get('socketio');
         io.emit('deletedMessage', { id: messageId });
@@ -126,11 +126,11 @@ exports.getParticipants = async (req, res) => {
     const { chatRoomId } = req.query;
 
     try {
-        const [participants] = await db.query(
+        const participants = await db.executeQuery(
             `
                 SELECT u.id, u.username, u.profile_picture
                 FROM chat_participants cp
-                         JOIN users u ON cp.user_id = u.id
+                JOIN users u ON cp.user_id = u.id
                 WHERE cp.chatRoomId = ?
             `,
             [chatRoomId]
@@ -148,8 +148,7 @@ exports.createVote = async (req, res) => {
     const { title, options, chatRoomId } = req.body;
 
     try {
-        // 중복 방지 - 같은 채팅방 내에서 동일한 제목의 투표가 있는지 확인
-        const [existingVote] = await db.query(
+        const existingVote = await db.executeQuery(
             `
                 SELECT * FROM votes WHERE title = ? AND chatRoomId = ?
             `,
@@ -160,7 +159,7 @@ exports.createVote = async (req, res) => {
             return res.status(400).json({ message: 'Vote with the same title already exists in this chat room' });
         }
 
-        const [result] = await db.query(
+        const result = await db.executeQuery(
             `
                 INSERT INTO votes (title, chatRoomId, created_at)
                 VALUES (?, ?, NOW())
@@ -170,9 +169,8 @@ exports.createVote = async (req, res) => {
 
         const voteId = result.insertId;
 
-        // 투표 옵션 추가
         const optionPromises = options.map((option) =>
-            db.query(
+            db.executeQuery(
                 `
                     INSERT INTO vote_options (voteId, option_text)
                     VALUES (?, ?)
@@ -195,8 +193,7 @@ exports.vote = async (req, res) => {
     const { voteOptionId, userId } = req.body;
 
     try {
-        // 중복 투표 방지
-        const [existingVote] = await db.query(
+        const existingVote = await db.executeQuery(
             `
                 SELECT * FROM votes_log
                 WHERE user_id = ? AND vote_option_id = ?
@@ -208,8 +205,7 @@ exports.vote = async (req, res) => {
             return res.status(400).json({ message: 'User has already voted' });
         }
 
-        // 투표 등록
-        await db.query(
+        await db.executeQuery(
             `
                 INSERT INTO votes_log (user_id, vote_option_id, created_at)
                 VALUES (?, ?, NOW())
@@ -229,7 +225,7 @@ exports.getVoteResults = async (req, res) => {
     const { voteId } = req.params;
 
     try {
-        const [results] = await db.query(
+        const results = await db.executeQuery(
             `
                 SELECT vo.option_text, COUNT(vl.id) as votes
                 FROM vote_options vo
@@ -252,7 +248,7 @@ exports.createAnnouncement = async (req, res) => {
     const { title, content, chatRoomId } = req.body;
 
     try {
-        await db.query(
+        await db.executeQuery(
             `
                 INSERT INTO announcements (title, content, chatRoomId, created_at)
                 VALUES (?, ?, ?, NOW())
@@ -272,7 +268,7 @@ exports.getAnnouncements = async (req, res) => {
     const { chatRoomId } = req.query;
 
     try {
-        const [announcements] = await db.query(
+        const announcements = await db.executeQuery(
             `
                 SELECT * FROM announcements
                 WHERE chatRoomId = ?
@@ -293,7 +289,7 @@ exports.createPost = async (req, res) => {
     const { title, content, chatRoomId } = req.body;
 
     try {
-        await db.query(
+        await db.executeQuery(
             `
                 INSERT INTO posts (title, content, chatRoomId, created_at)
                 VALUES (?, ?, ?, NOW())
@@ -313,7 +309,7 @@ exports.getPosts = async (req, res) => {
     const { chatRoomId } = req.query;
 
     try {
-        const [posts] = await db.query(
+        const posts = await db.executeQuery(
             `
                 SELECT * FROM posts
                 WHERE chatRoomId = ?
@@ -334,8 +330,7 @@ exports.pinMessage = async (req, res) => {
     const { messageId, chatRoomId } = req.body;
 
     try {
-        // 현재 고정된 메시지 확인 후 기존 고정 해제
-        await db.query(
+        await db.executeQuery(
             `
                 UPDATE messages SET is_pinned = 0
                 WHERE chatRoomId = ? AND is_pinned = 1
@@ -343,8 +338,7 @@ exports.pinMessage = async (req, res) => {
             [chatRoomId]
         );
 
-        // 새로운 메시지 고정
-        await db.query(
+        await db.executeQuery(
             `
                 UPDATE messages SET is_pinned = 1
                 WHERE id = ?
@@ -369,7 +363,7 @@ exports.uploadFile = async (req, res) => {
         const { chatRoomId } = req.body;
         const fileUrl = `${process.env.FILE_STORAGE_URL}/${req.file.filename}`;
 
-        await db.query(
+        await db.executeQuery(
             `
                 INSERT INTO files (chatRoomId, fileUrl, originalName, uploaded_at)
                 VALUES (?, ?, ?, NOW())
@@ -400,7 +394,7 @@ module.exports.initializeSocketIO = (io) => {
             const { chatRoomId, content, sender } = data;
 
             try {
-                const [result] = await db.query(
+                const result = await db.executeQuery(
                     `
                         INSERT INTO messages (chatRoomId, content, sender, created_at)
                         VALUES (?, ?, ?, NOW())
@@ -408,7 +402,7 @@ module.exports.initializeSocketIO = (io) => {
                     [chatRoomId, content, sender]
                 );
 
-                const [newMessage] = await db.query(
+                const newMessage = await db.executeQuery(
                     `
                         SELECT m.id, m.content, m.created_at, u.username AS senderName, u.profile_picture AS senderProfile
                         FROM messages m
@@ -431,7 +425,7 @@ module.exports.initializeSocketIO = (io) => {
             const { messageId, newContent } = data;
 
             try {
-                await db.query(
+                await db.executeQuery(
                     `
                         UPDATE messages SET content = ?, updated_at = NOW()
                         WHERE id = ?
@@ -439,7 +433,7 @@ module.exports.initializeSocketIO = (io) => {
                     [newContent, messageId]
                 );
 
-                const [updatedMessage] = await db.query(
+                const updatedMessage = await db.executeQuery(
                     `
                         SELECT m.id, m.content, m.updated_at, u.username AS senderName, u.profile_picture AS senderProfile
                         FROM messages m
@@ -461,7 +455,7 @@ module.exports.initializeSocketIO = (io) => {
             const { messageId } = data;
 
             try {
-                await db.query('DELETE FROM messages WHERE id = ?', [messageId]);
+                await db.executeQuery('DELETE FROM messages WHERE id = ?', [messageId]);
                 io.emit('deletedMessage', { id: messageId });
             } catch (error) {
                 console.error('Failed to delete message:', error);
