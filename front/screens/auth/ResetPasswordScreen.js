@@ -40,33 +40,33 @@ const ResetPasswordScreen = ({ navigation }) => {
         }).start();
     };
 
-    // 비밀번호 재설정 함수
+    // 비밀번호 재설정 요청 함수
     const handleResetPassword = async () => {
-        if (!newPassword || !confirmPassword) {
-            Alert.alert('모든 필드를 입력해주세요.');
-            return;
-        }
-
-        if (newPassword !== confirmPassword) {
-            Alert.alert('비밀번호가 일치하지 않습니다.');
+        if (!username || !email || !verificationCode || !newPassword) {
+            Alert.alert('모든 필드를 올바르게 입력해 주세요.');
             return;
         }
 
         try {
             const response = await axios.post('http://121.127.165.43:3000/api/users/reset-password', {
-                password: newPassword,
+                username,
+                email,
+                code: verificationCode,
+                newPassword,
             });
 
             if (response.data.success) {
                 Alert.alert('비밀번호가 성공적으로 재설정되었습니다.');
-                navigation.navigate('LoginScreen'); // 재설정 완료 후 로그인 페이지로 이동
+                navigation.navigate('LoginScreen'); // 비밀번호 재설정 후 로그인 화면으로 이동
             } else {
-                Alert.alert('비밀번호 재설정에 실패했습니다. 다시 시도해주세요.');
+                Alert.alert(response.data.message || '비밀번호 재설정에 실패했습니다. 다시 시도해주세요.');
             }
         } catch (error) {
+            console.error('비밀번호 재설정 오류:', error); // 오류 로그 추가
             Alert.alert('비밀번호 재설정 요청에 실패했습니다. 다시 시도해주세요.');
         }
     };
+
 
     // 비밀번호 일치 여부 확인
     const handlePasswordChange = (value) => {

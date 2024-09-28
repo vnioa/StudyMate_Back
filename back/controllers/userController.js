@@ -176,41 +176,45 @@ const findUserId = async (req, res) => {
     }
 };
 
-// 비밀번호 재설정 함수
 const resetPassword = async (req, res) => {
     const { username, email, code, newPassword } = req.body;
-    console.log(`비밀번호 재설정 요청: ${username}, ${email}`); // 로그 추가
+    console.log('비밀번호 재설정 요청:', req.body); // 요청 데이터 출력
+
+    // 입력된 값이 undefined가 아닌지 확인
+    if (!username || !email || !code || !newPassword) {
+        console.log('재설정 요청에 필요한 데이터가 누락되었습니다.');
+        return res.status(400).json({ success: false, message: '모든 필드를 올바르게 입력해 주세요.' });
+    }
 
     try {
+        // 유저 검증
         const [user] = await db.execute('SELECT * FROM users WHERE username = ? AND email = ?', [username, email]);
-        console.log(`비밀번호 재설정 유저 조회 결과: ${user.length > 0 ? '유저 존재' : '유저 없음'}`); // 로그 추가
-
         if (user.length === 0) {
             return res.status(404).json({ success: false, message: '해당 정보와 일치하는 계정이 없습니다.' });
         }
 
+        // 인증 코드 검증
         const [validCode] = await db.execute('SELECT * FROM verification_codes WHERE user_id = ? AND code = ?', [user[0].id, code]);
-        console.log(`인증 코드 검증 결과: ${validCode.length > 0 ? '유효한 코드' : '잘못된 코드'}`); // 로그 추가
-
         if (validCode.length === 0) {
             return res.status(400).json({ success: false, message: '인증 코드가 올바르지 않습니다.' });
         }
 
-        // 비밀번호 업데이트
+        // 비밀번호 해시화 처리
         const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // 비밀번호 업데이트
         await db.execute('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, user[0].id]);
-        console.log('비밀번호 재설정 완료'); // 로그 추가
 
         // 사용된 인증 코드 삭제
         await db.execute('DELETE FROM verification_codes WHERE user_id = ?', [user[0].id]);
-        console.log('인증 코드 삭제 완료'); // 로그 추가
 
         res.status(200).json({ success: true, message: '비밀번호가 성공적으로 재설정되었습니다.' });
     } catch (error) {
-        console.error('비밀번호 재설정 오류:', error); // 오류 로그 추가
+        console.error('비밀번호 재설정 오류:', error);
         res.status(500).json({ success: false, message: '비밀번호 재설정에 실패했습니다.' });
     }
 };
+
 
 module.exports = {
     checkUsername,
