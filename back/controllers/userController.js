@@ -177,26 +177,20 @@ const findUserId = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-    const { username, email, code, newPassword } = req.body;
+    const { username, newPassword } = req.body;
     console.log('비밀번호 재설정 요청:', req.body); // 요청 데이터 출력
 
     // 입력된 값이 undefined가 아닌지 확인
-    if (!username || !email || !code || !newPassword) {
+    if (!username || !newPassword) {
         console.log('재설정 요청에 필요한 데이터가 누락되었습니다.');
         return res.status(400).json({ success: false, message: '모든 필드를 올바르게 입력해 주세요.' });
     }
 
     try {
         // 유저 검증
-        const [user] = await db.execute('SELECT * FROM users WHERE username = ? AND email = ?', [username, email]);
+        const [user] = await db.execute('SELECT * FROM users WHERE username = ?', [username]);
         if (user.length === 0) {
             return res.status(404).json({ success: false, message: '해당 정보와 일치하는 계정이 없습니다.' });
-        }
-
-        // 인증 코드 검증
-        const [validCode] = await db.execute('SELECT * FROM verification_codes WHERE user_id = ? AND code = ?', [user[0].id, code]);
-        if (validCode.length === 0) {
-            return res.status(400).json({ success: false, message: '인증 코드가 올바르지 않습니다.' });
         }
 
         // 비밀번호 해시화 처리
