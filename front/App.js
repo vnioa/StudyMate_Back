@@ -1,14 +1,91 @@
 import React from 'react';
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './screens/home/HomeScreen';
+import ChatMainScreen from './screens/chat/ChatMainScreen';
+import MyStudyMainScreen from './screens/mystudy/MyStudyMainScreen';
+import MyGroupsMainScreen from './screens/group/MyGroupsMainScreen';
+import MyPageMainScreen from './screens/mypage/MyPageMainScreen';
 import IntroScreen from './screens/home/IntroScreen';
 import LoginScreen from './screens/auth/LoginScreen';
 import SignupScreen from './screens/auth/SignupScreen';
 import FindIdPasswordScreen from './screens/auth/FindIdPasswordScreen';
 import ResetPasswordScreen from './screens/auth/ResetPasswordScreen';
-import HomeScreen from './screens/home/HomeScreen'; // 로그인 후 홈 화면
 
+// Stack Navigator for intro, login, signup and related screens
 const Stack = createStackNavigator();
+
+// Bottom Tab Navigator for the main screens after login
+const Tab = createBottomTabNavigator();
+
+const MainTabNavigator = () => {
+  return (
+      <Tab.Navigator>
+        <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: () => (
+                  <Image
+                      source={require('./assets/home-office.png')}
+                      style={{ width: 24, height: 24 }}
+                  />
+              ),
+            }}
+        />
+        <Tab.Screen
+            name="Chat"
+            component={ChatMainScreen}
+            options={{
+              tabBarIcon: () => (
+                  <Image
+                      source={require('./assets/chat.png')}
+                      style={{ width: 24, height: 24 }}
+                  />
+              ),
+            }}
+        />
+        <Tab.Screen
+            name="My Study"
+            component={MyStudyMainScreen}
+            options={{
+              tabBarIcon: () => (
+                  <Image
+                      source={require('./assets/studying.png')}
+                      style={{ width: 24, height: 24 }}
+                  />
+              ),
+            }}
+        />
+        <Tab.Screen
+            name="Group"
+            component={MyGroupsMainScreen}
+            options={{
+              tabBarIcon: () => (
+                  <Image
+                      source={require('./assets/work-group.png')}
+                      style={{ width: 24, height: 24 }}
+                  />
+              ),
+            }}
+        />
+        <Tab.Screen
+            name="My Page"
+            component={MyPageMainScreen}
+            options={{
+              tabBarIcon: () => (
+                  <Image
+                      source={require('./assets/profile.png')}
+                      style={{ width: 24, height: 24 }}
+                  />
+              ),
+            }}
+        />
+      </Tab.Navigator>
+  );
+};
 
 const App = () => {
   return (
@@ -41,7 +118,7 @@ const App = () => {
           />
           <Stack.Screen
               name="HomeScreen"
-              component={HomeScreen}
+              component={MainTabNavigator}
               options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -3,12 +3,19 @@ import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Animated, E
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
+import * as Google from 'expo-auth-session/providers/google';
+import { WebView } from 'react-native-webview';
 
 const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const fadeAnim = new Animated.Value(0);
+
+    // Google OAuth 관련 상태 및 핸들러 설정
+    const [googleRequest, googleResponse, googlePromptAsync] = Google.useIdTokenAuthRequest({
+        clientId: '659041967960-r5s4j788pqtrbhrg2c2ll8kkq8j6a64l.apps.googleusercontent.com',
+    });
 
     // 애니메이션 효과 적용
     useEffect(() => {
@@ -64,6 +71,54 @@ const LoginScreen = ({ navigation }) => {
             Alert.alert('로그인 요청에 실패했습니다. 다시 시도해주세요.');
         }
     };
+
+    // Google 소셜 로그인 처리
+    useEffect(() => {
+        if (googleResponse?.type === 'success') {
+            const { id_token } = googleResponse.params;
+            axios.post('http://121.127.165.43:3000/api/users/login/google', { token: id_token })
+                .then(async (res) => {
+                    await AsyncStorage.setItem('userToken', res.data.token);
+                    navigation.navigate('HomeScreen');
+                })
+                .catch(err => console.error('Google 로그인 실패:', err));
+        }
+    }, [googleResponse]);
+
+    // Naver/Kakao WebView에서 OAuth 처리
+    const handleNaverLogin = () => (
+        <WebView
+            source={{ uri: 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=<YOUR_NAVER_CLIENT_ID>&redirect_uri=<YOUR_REDIRECT_URI>&state=<RANDOM_STATE>' }}
+            onNavigationStateChange={(event) => {
+                if (event.url.includes('code=')) {
+                    const code = event.url.split('code=')[1].split('&')[0];
+                    axios.post('http://121.127.165.43:3000/api/users/login/naver', { code })
+                        .then(async (res) => {
+                            await AsyncStorage.setItem('userToken', res.data.token);
+                            navigation.navigate('HomeScreen');
+                        })
+                        .catch(err => console.error('Naver 로그인 실패:', err));
+                }
+            }}
+        />
+    );
+
+    const handleKakaoLogin = () => (
+        <WebView
+            source={{ uri: 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=<YOUR_KAKAO_CLIENT_ID>&redirect_uri=<YOUR_REDIRECT_URI>' }}
+            onNavigationStateChange={(event) => {
+                if (event.url.includes('code=')) {
+                    const code = event.url.split('code=')[1].split('&')[0];
+                    axios.post('http://121.127.165.43:3000/auth/kakao', { code })
+                        .then(async (res) => {
+                            await AsyncStorage.setItem('userToken', res.data.token);
+                            navigation.navigate('HomeScreen');
+                        })
+                        .catch(err => console.error('Kakao 로그인 실패:', err));
+                }
+            }}
+        />
+    );
 
     return (
         <SafeAreaView style={styles.safeArea}>
